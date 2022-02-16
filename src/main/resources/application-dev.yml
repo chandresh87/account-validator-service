@@ -1,0 +1,17 @@
+config:
+  providers:
+    -
+      name: source1
+      url: https://source1.com/api/v1/account/validate
+    -
+      name: source2
+      url: https://source2.com/api/v1/account/validate
+    -
+      name: source3
+      url: https://source3.com/api/v1/account/validate
+    -
+      name: source4
+      url: https://source4.com/api/v1/account/validate
+    -
+      name: source5
+      url: https://source5.com/api/v1/account/validate

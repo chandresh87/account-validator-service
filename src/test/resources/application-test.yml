@@ -1,0 +1,32 @@
+config:
+  providers:
+    -
+      name: source1
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source2
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source3
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source4
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source5
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source6
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source7
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source8
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source9
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+    -
+      name: source10
+      url: http://localhost:${wiremock.server.port}/api/v1/account/validate
