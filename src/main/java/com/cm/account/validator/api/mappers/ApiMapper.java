@@ -1,7 +1,7 @@
 package com.cm.account.validator.api.mappers;
 
-import com.cm.account.validator.api.AccountModel;
-import com.cm.account.validator.api.ValidationModel;
+import com.cm.account.validator.api.AccountRequestModel;
+import com.cm.account.validator.api.ValidationResponseModel;
 import com.cm.account.validator.services.AccountBO;
 import com.cm.account.validator.services.ValidationBO;
 import org.mapstruct.Mapper;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface ApiMapper {
 
-  ValidationModel validationBOToModel(ValidationBO validationBO);
+  ValidationResponseModel validationBOToModel(ValidationBO validationBO);
 
-  AccountBO accountModelToBO(AccountModel accountModel);
+  AccountBO accountModelToBO(AccountRequestModel accountRequestModel);
 }

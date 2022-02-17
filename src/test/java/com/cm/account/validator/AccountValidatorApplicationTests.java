@@ -1,6 +1,6 @@
 package com.cm.account.validator;
 
-import com.cm.account.validator.api.ValidationModel;
+import com.cm.account.validator.api.ValidationResponseModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,7 @@ class AccountValidatorApplicationTests {
         .exchange()
         .expectStatus()
         .isOk()
-        .expectBodyList(ValidationModel.class)
+        .expectBodyList(ValidationResponseModel.class)
         .hasSize(10);
     long end = System.currentTimeMillis();
     long totalExecutionTime = end - start;

@@ -6,7 +6,7 @@ You need to implement a rest service that accepts requests to validate an accoun
 The service doesn't store any data but instead sends requests to other account data sources, aggregates this data and returns to the client.
 Response is an array of objects, each object has two fields: source and isValid. Source is a string and is the name of a data source, isValid is a boolean value that data source returned.
 
-# Solution
+# Solution -1 
 
 ## Technology Stack:
 
@@ -86,4 +86,63 @@ webTestClient
 
 assertTrue(totalExecutionTime < 2000);
 
+```
+# Solution -2
+
+
+If for some reason, we don't want to use the reactive approach then we can use the traditional approach with
+completableFuture and RestTemplate.
+
+You can see the non-reactive approach under directory "account-validator-non-reactive".
+
+Appropriate test has also been added for this.
+
+## Technology Stack:
+
+     1. Java
+	 2. Spring web
+	 3. MapStruct
+ 	 4. Maven
+
+```
+private ValidationDTO callExternalSource(
+      RestTemplate restTemplate, ValidationRequestDTO validationRequestDTO, String source) {
+    // Post requests to the sources
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    HttpEntity<?> httpEntity = new HttpEntity<Object>(validationRequestDTO, headers);
+    StopWatch stopWatch = new StopWatch();
+    stopWatch.start();
+    ResponseEntity<ValidationResponseDTO> response =
+        restTemplate.exchange("", HttpMethod.POST, httpEntity, ValidationResponseDTO.class);
+    stopWatch.stop();
+    log.info(
+        "Time taken by the service {} is {} with response {}",
+        source,
+        stopWatch.getTotalTimeMillis(),
+        response.getBody());
+
+    return new ValidationDTO(source, response.getBody().getIsValid());
+    
+    
+    completableFutures =
+          restTemplateMap.entrySet().stream()
+              .map(
+                  entry -> {
+                    ValidationRequestDTO validationRequestDTO =
+                        new ValidationRequestDTO(accountDTO.getAccountNumber());
+
+                    return CompletableFuture.supplyAsync(
+                        () ->
+                            callExternalSource(
+                                entry.getValue(), validationRequestDTO, entry.getKey()),
+                        taskExecutor);
+                  })
+              .collect(Collectors.toList());
+              
+              completableFutures.stream().map(CompletableFuture::join).collect(Collectors.toList());
+  }
+  
+  
 ```

@@ -1,4 +1,4 @@
-package com.cm.account.validator.remote;
+package com.cm.account.validator.nonreactive.remote;
 
 import lombok.Data;
 

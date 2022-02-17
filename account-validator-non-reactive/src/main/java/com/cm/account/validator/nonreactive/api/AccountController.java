@@ -1,7 +1,8 @@
-package com.cm.account.validator.api;
+package com.cm.account.validator.nonreactive.api;
 
-import com.cm.account.validator.api.mappers.ApiMapper;
-import com.cm.account.validator.services.ValidationService;
+import com.cm.account.validator.nonreactive.api.mappers.ApiMapper;
+import com.cm.account.validator.nonreactive.services.ValidationBO;
+import com.cm.account.validator.nonreactive.services.ValidationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(
@@ -31,10 +32,11 @@ public class AccountController {
   }
 
   @PostMapping(path = "/account")
-  public Flux<ValidationResponseModel> validateAccount(@Valid @RequestBody AccountRequestModel accountRequestModel) {
+  public List<ValidationResponseModel> validateAccount(
+      @Valid @RequestBody AccountRequestModel accountRequestModel) {
     log.info("Validation request for {}", accountRequestModel);
-    return validationService
-        .validateAccount(apiMapper.accountModelToBO(accountRequestModel))
-        .map(apiMapper::validationBOToModel);
+    List<ValidationBO> validationBOS =
+        validationService.validateAccount(apiMapper.accountModelToBO(accountRequestModel));
+    return apiMapper.validationResponseModelListBOToModel(validationBOS);
   }
 }

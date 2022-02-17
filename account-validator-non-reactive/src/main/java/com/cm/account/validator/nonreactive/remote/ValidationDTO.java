@@ -1,11 +1,13 @@
-package com.cm.account.validator.api;
+package com.cm.account.validator.nonreactive.remote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class ValidationModel {
+@NoArgsConstructor
+public class ValidationDTO {
   private String source;
   private boolean isValid;
 }
