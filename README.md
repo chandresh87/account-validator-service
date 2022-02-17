@@ -55,7 +55,7 @@ private Mono<ValidationDTO> callExternalSource(
       validationDTOFlux = Flux.merge(monoList);
 ```
 We have used webclient to call the external sources and merged the response using Flux.merge.
-The default concurrency level for merge is 256, which is sufficient in our case else we can use other 
+The default concurrency level for merge is 256, which is sufficient for our case else we can use other 
 overloaded version of merge.
 
 ```
@@ -68,7 +68,7 @@ aResponse()
 .withFixedDelay(1000)
 ));
 ```
-There is  test which uses wiremock. Wiremock is configured to return a response with fixed delay of 1sec.
+There is a test which uses wiremock. Wiremock is configured to return a response with fixed delay of 1sec.
 Test is asserting that response from the controller is received under 2 sec. We are making 10 concurrent calls
 to the wiremock. 
 
