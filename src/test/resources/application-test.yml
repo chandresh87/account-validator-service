@@ -20,3 +20,5 @@ config:
       url: http://localhost:${wiremock.server.port}/api/v1/account/validate
     - name: source10
       url: http://localhost:${wiremock.server.port}/api/v1/account/validate
+  readTimeout: 2000
+  ConnectTimeout: 2000

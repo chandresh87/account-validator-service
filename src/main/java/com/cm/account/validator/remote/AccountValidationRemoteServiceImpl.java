@@ -1,6 +1,6 @@
 package com.cm.account.validator.remote;
 
-import com.cm.account.validator.remote.exception.RemoteDataException;
+import com.cm.account.validator.remote.exception.RemoteDataClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class AccountValidationRemoteServiceImpl implements AccountValidationRemo
     Flux<ValidationDTO> validationDTOFlux = null;
 
     if (accountDTO.getAccountNumber() == null) {
-      throw new RemoteDataException("Account number is mandatory");
+      throw new RemoteDataClientException("Account number is mandatory");
     }
     // sending request to all sources
     if (CollectionUtils.isEmpty(accountDTO.getSources())) {

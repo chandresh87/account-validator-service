@@ -1,6 +1,6 @@
 package com.cm.account.validator.api;
 
-import com.cm.account.validator.remote.exception.RemoteDataException;
+import com.cm.account.validator.remote.exception.RemoteDataClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,9 +57,9 @@ public class ControllerExceptionHandler {
         new ResponseErrorModel(HttpStatus.BAD_REQUEST, Collections.singletonList(ERROR_MESSAGE)));
   }
 
-  @ExceptionHandler(RemoteDataException.class)
+  @ExceptionHandler(RemoteDataClientException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public Mono<ResponseErrorModel> handle(RemoteDataException exception) {
+  public Mono<ResponseErrorModel> handle(RemoteDataClientException exception) {
     log.error(exception.getMessage(), exception);
 
     return Mono.just(

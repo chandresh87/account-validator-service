@@ -10,3 +10,5 @@ config:
       url: https://source4.com/api/v1/account/validate
     - name: source5
       url: https://source5.com/api/v1/account/validate
+  readTimeout: 2000
+  ConnectTimeout: 2000
