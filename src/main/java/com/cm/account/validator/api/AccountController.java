@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 
@@ -31,10 +32,14 @@ public class AccountController {
   }
 
   @PostMapping(path = "/account")
-  public Flux<ValidationResponseModel> validateAccount(@Valid @RequestBody AccountRequestModel accountRequestModel) {
-    log.info("Validation request for {}", accountRequestModel);
-    return validationService
-        .validateAccount(apiMapper.accountModelToBO(accountRequestModel))
+  public Flux<ValidationResponseModel> validateAccount(
+      @Valid @RequestBody Mono<AccountRequestModel> accountRequestModel) {
+
+    return accountRequestModel
+        .doOnNext(
+            accountRequestModel1 -> log.info("Validation request for {}", accountRequestModel1))
+        .map(apiMapper::accountModelToBO)
+        .flatMapMany(validationService::validateAccount)
         .map(apiMapper::validationBOToModel);
   }
 }
